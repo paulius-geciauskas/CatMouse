@@ -57,8 +57,12 @@ public class MazeMap {
 
     public void catMove() {
         Coordinate cat = catCoord();
-        Coordinate next = catCoord();
         Coordinate mouse = mouseCoord();
+        Coordinate catNext = shortestPath(mouse.getX(),mouse.getY());
+        currentMap[catNext.getX()][catNext.getY()].setP(PointType.CAT);
+        currentMap[cat.getX()][cat.getY()].setP(PointType.EMPTY);
+
+
 
     }
 
@@ -66,9 +70,9 @@ public class MazeMap {
         q.add(new Coordinate(x, y, null));
         while (!q.isEmpty()) {
             Coordinate p = q.remove();
-            if (currentMap[p.getX()][p.getY()].getP().equals(PointType.MOUSE)) {
+            if (currentMap[p.getX()][p.getY()].getP().equals(PointType.CAT)) {
                 System.out.println("OK");
-                return p;
+                return p.parent;
             }
             if(isEmpty(p.getX()+1,p.getY())) {
                 currentMap[p.getX()][p.getY()].setCheck(false);
