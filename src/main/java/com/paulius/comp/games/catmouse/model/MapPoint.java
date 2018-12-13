@@ -1,10 +1,12 @@
+package com.paulius.comp.games.catmouse.model;
+
 /**
  * Created by Admin on 2018-12-06.
  */
 public class MapPoint  {
 
-  //  private boolean X;
-   // private boolean K;
+  //  private boolean WALL;
+   // private boolean CAT;
 
     private PointType p ;
 
@@ -20,10 +22,8 @@ public class MapPoint  {
     }
 
 
-
-    @Override
-    public String toString() {
-        return  ""+ p ;
+    public PointType getP() {
+        return p;
     }
 }
 
