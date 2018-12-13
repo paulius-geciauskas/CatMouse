@@ -5,8 +5,16 @@ package com.paulius.comp.games.catmouse.model;
  */
 public class MapPoint  {
 
-  //  private boolean WALL;
-   // private boolean CAT;
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    //  private boolean WALL;
+    private boolean check = true;
 
     private PointType p ;
 
