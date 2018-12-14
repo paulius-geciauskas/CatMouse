@@ -46,22 +46,22 @@ public class MazeMap {
         if ((input.equals(KeyInput.DOWN)) && (currentMap[mouseCoord().getX()][mouseCoord().getY() - 1].getP().equals(PointType.EMPTY) ||
                 currentMap[mouseCoord().getX()][mouseCoord().getY() - 1].getP().equals(PointType.WALL))) {
             currentMap[mouseCoord().getX()][mouseCoord().getY()].setP(PointType.EMPTY);
-            currentMap[mouseCoord().getX()][mouseCoord().getY()-1].setP(PointType.MOUSE);
+            currentMap[mouseCoord().getX()][mouseCoord().getY() - 1].setP(PointType.MOUSE);
         }
         if ((input.equals(KeyInput.UP)) && (currentMap[mouseCoord().getX()][mouseCoord().getY() + 1].getP().equals(PointType.EMPTY) ||
                 currentMap[mouseCoord().getX()][mouseCoord().getY() + 1].getP().equals(PointType.WALL))) {
             currentMap[mouseCoord().getX()][mouseCoord().getY()].setP(PointType.EMPTY);
-            currentMap[mouseCoord().getX()][mouseCoord().getY()+1].setP(PointType.MOUSE);
+            currentMap[mouseCoord().getX()][mouseCoord().getY() + 1].setP(PointType.MOUSE);
         }
-        if ((input.equals(KeyInput.LEFT)) && (currentMap[mouseCoord().getX()-1][mouseCoord().getY()].getP().equals(PointType.EMPTY) ||
-                currentMap[mouseCoord().getX()-1][mouseCoord().getY()].getP().equals(PointType.WALL))) {
+        if ((input.equals(KeyInput.LEFT)) && (currentMap[mouseCoord().getX() - 1][mouseCoord().getY()].getP().equals(PointType.EMPTY) ||
+                currentMap[mouseCoord().getX() - 1][mouseCoord().getY()].getP().equals(PointType.WALL))) {
             currentMap[mouseCoord().getX()][mouseCoord().getY()].setP(PointType.EMPTY);
-            currentMap[mouseCoord().getX()-1][mouseCoord().getY()].setP(PointType.MOUSE);
+            currentMap[mouseCoord().getX() - 1][mouseCoord().getY()].setP(PointType.MOUSE);
         }
-        if ((input.equals(KeyInput.RIGHT)) && (currentMap[mouseCoord().getX()+1][mouseCoord().getY()].getP().equals(PointType.EMPTY) ||
-                currentMap[mouseCoord().getX()+1][mouseCoord().getY()].getP().equals(PointType.WALL))) {
+        if ((input.equals(KeyInput.RIGHT)) && (currentMap[mouseCoord().getX() + 1][mouseCoord().getY()].getP().equals(PointType.EMPTY) ||
+                currentMap[mouseCoord().getX() + 1][mouseCoord().getY()].getP().equals(PointType.WALL))) {
             currentMap[mouseCoord().getX()][mouseCoord().getY()].setP(PointType.EMPTY);
-            currentMap[mouseCoord().getX()+1][mouseCoord().getY()].setP(PointType.MOUSE);
+            currentMap[mouseCoord().getX() + 1][mouseCoord().getY()].setP(PointType.MOUSE);
         }
     }
 
