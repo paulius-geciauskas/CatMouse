@@ -5,6 +5,7 @@
 import static org.junit.Assert.assertTrue;
 
 import com.paulius.comp.games.catmouse.data.MapLoader;
+
 import java.com.paulius.comp.games.catmouse.model.MazeMap;
 
 import org.junit.Assert;
@@ -28,7 +29,7 @@ public class CatMoveTest {
 
     @Test
     public void successCases0() {
-   Assert.assertEquals(MapPoint(EMPTY, 3, 3), MazeMap.calcNextCatMove(m));
+        Assert.assertEquals(MapPoint(EMPTY, 3, 3), MazeMap.calcNextCatMove(m));
     }
 
 }
