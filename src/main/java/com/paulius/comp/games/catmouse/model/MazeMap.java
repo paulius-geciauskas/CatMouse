@@ -1,6 +1,5 @@
 package com.paulius.comp.games.catmouse.model;
 
-import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -8,7 +7,7 @@ import java.util.Queue;
  */
 public class MazeMap {
     private MapPoint[][] currentMap;
-    public static Queue<Coordinate> q = new LinkedList<Coordinate>();
+
 
     public void setCurrentMap(MapPoint[][] currentMap) {
         this.currentMap = currentMap;
@@ -19,89 +18,78 @@ public class MazeMap {
     }
 
 
-    public Coordinate mouseCoord() {
+    public MapPoint mouseCoord() {
         return objectSearch(PointType.MOUSE);
 
     }
 
-    public Coordinate catCoord() {
+    public MapPoint catCoord() {
         return objectSearch(PointType.CAT);
 
     }
 
-    private Coordinate objectSearch(PointType objectForSearch) {
+    private MapPoint objectSearch(PointType objectForSearch) {
 
         for (int x = 0; x < currentMap.length; x++) {
             for (int y = 0; y < currentMap[x].length; y++) {
                 if (currentMap[x][y].getP().equals(objectForSearch)) {
-                    return new Coordinate(x, y, null);
+                    return new MapPoint(objectForSearch, x, y);
                 }
             }
 
         }
-        throw new RuntimeException("No mouse found");
+        throw new RuntimeException("No" + objectForSearch + "found");
     }
 
-    public void mouseMove(Coordinate newcoor) {
 
-        Coordinate oldCoord = mouseCoord();
-        if (currentMap[newcoor.getX()][newcoor.getY()].getP().equals(PointType.EMPTY)) {
-            currentMap[oldCoord.getX()][oldCoord.getY()].setP(PointType.EMPTY);
-            currentMap[newcoor.getX()][newcoor.getY()].setP(PointType.CAT);
+    public void mouseMove(KeyInput input) {
+        if ((input.equals(KeyInput.DOWN)) && (currentMap[mouseCoord().getX()][mouseCoord().getY() - 1].getP().equals(PointType.EMPTY) ||
+                currentMap[mouseCoord().getX()][mouseCoord().getY() - 1].getP().equals(PointType.WALL))) {
+            currentMap[mouseCoord().getX()][mouseCoord().getY()].setP(PointType.EMPTY);
+            currentMap[mouseCoord().getX()][mouseCoord().getY()-1].setP(PointType.MOUSE);
         }
-        if (currentMap[newcoor.getX()][newcoor.getY()].getP().equals(PointType.WALL)) {
-            currentMap[oldCoord.getX()][oldCoord.getY()].setP(PointType.EMPTY);
-            currentMap[newcoor.getX()][newcoor.getY()].setP(PointType.CAT);
+        if ((input.equals(KeyInput.UP)) && (currentMap[mouseCoord().getX()][mouseCoord().getY() + 1].getP().equals(PointType.EMPTY) ||
+                currentMap[mouseCoord().getX()][mouseCoord().getY() + 1].getP().equals(PointType.WALL))) {
+            currentMap[mouseCoord().getX()][mouseCoord().getY()].setP(PointType.EMPTY);
+            currentMap[mouseCoord().getX()][mouseCoord().getY()+1].setP(PointType.MOUSE);
+        }
+        if ((input.equals(KeyInput.LEFT)) && (currentMap[mouseCoord().getX()-1][mouseCoord().getY()].getP().equals(PointType.EMPTY) ||
+                currentMap[mouseCoord().getX()-1][mouseCoord().getY()].getP().equals(PointType.WALL))) {
+            currentMap[mouseCoord().getX()][mouseCoord().getY()].setP(PointType.EMPTY);
+            currentMap[mouseCoord().getX()-1][mouseCoord().getY()].setP(PointType.MOUSE);
+        }
+        if ((input.equals(KeyInput.RIGHT)) && (currentMap[mouseCoord().getX()+1][mouseCoord().getY()].getP().equals(PointType.EMPTY) ||
+                currentMap[mouseCoord().getX()+1][mouseCoord().getY()].getP().equals(PointType.WALL))) {
+            currentMap[mouseCoord().getX()][mouseCoord().getY()].setP(PointType.EMPTY);
+            currentMap[mouseCoord().getX()+1][mouseCoord().getY()].setP(PointType.MOUSE);
         }
     }
 
-    public void catMove() {
-        Coordinate cat = catCoord();
-        Coordinate mouse = mouseCoord();
-        Coordinate catNext = shortestPath(mouse.getX(),mouse.getY());
-        currentMap[catNext.getX()][catNext.getY()].setP(PointType.CAT);
-        currentMap[cat.getX()][cat.getY()].setP(PointType.EMPTY);
+    public MapPoint calcNextCatMove(MapPoint[][] currentMap) {
+        MapPoint mouse = mouseCoord();
+        MapPoint cat = catCoord();
+        Queue<MapPoint> queue = new java.util.LinkedList<MapPoint>();
+        queue.add(mouse);
+        while (!queue.isEmpty()) {
+            MapPoint p = queue.remove();
 
+            if (currentMap[p.getX() + 1][p.getY()].getP().equals(PointType.CAT)) return p;
+            if (currentMap[p.getX() - 1][p.getY()].getP().equals(PointType.CAT)) return p;
+            if (currentMap[p.getX()][p.getY() + 1].getP().equals(PointType.CAT)) return p;
+            if (currentMap[p.getX()][p.getY() - 1].getP().equals(PointType.CAT)) return p;
 
+            if (currentMap[p.getX() + 1][p.getY()].getP().equals(PointType.EMPTY))
+                queue.offer(currentMap[p.getX() + 1][p.getY()]);
+            if (currentMap[p.getX() - 1][p.getY()].getP().equals(PointType.EMPTY))
+                queue.offer(currentMap[p.getX() - 1][p.getY()]);
+            if (currentMap[p.getX()][p.getY() + 1].getP().equals(PointType.EMPTY))
+                queue.offer(currentMap[p.getX()][p.getY() + 1]);
+            if (currentMap[p.getX()][p.getY() - 1].getP().equals(PointType.EMPTY))
+                queue.offer(currentMap[p.getX()][p.getY() - 1]);
 
-    }
-
-    private Coordinate shortestPath(int x, int y) {
-        q.add(new Coordinate(x, y, null));
-        while (!q.isEmpty()) {
-            Coordinate p = q.remove();
-            if (currentMap[p.getX()][p.getY()].getP().equals(PointType.CAT)) {
-                System.out.println("OK");
-                return p.parent;
-            }
-            if(isEmpty(p.getX()+1,p.getY())) {
-                currentMap[p.getX()][p.getY()].setCheck(false);
-                Coordinate nextP = new Coordinate(p.getX()+1,p.getY(), p);
-                q.add(nextP);
-            }
-            if(isEmpty(p.getX()-1,p.getY())) {
-                currentMap[p.getX()][p.getY()].setCheck(false);
-                Coordinate nextP = new Coordinate(p.getX()-1,p.getY(), p);
-                q.add(nextP);
-            }
-            if(isEmpty(p.getX(),p.getY()+1)) {
-                currentMap[p.getX()][p.getY()].setCheck(false);
-                Coordinate nextP = new Coordinate(p.getX(),p.getY()+1, p);
-                q.add(nextP);
-            }
-            if(isEmpty(p.getX(),p.getY()-1)) {
-                currentMap[p.getX()][p.getY()].setCheck(false);
-                Coordinate nextP = new Coordinate(p.getX(),p.getY()-1, p);
-                q.add(nextP);
-            }
         }
-        return null;
+        throw new RuntimeException("No path found");
     }
 
-    private boolean isEmpty(int x, int y) {
-        if ((currentMap[x][y].getP().equals(PointType.EMPTY)||currentMap[x][y].getP().equals(PointType.MOUSE)) && currentMap[x][y].isCheck() ) {
-            return true;
-        }
-        return false;
-    }
+
 }

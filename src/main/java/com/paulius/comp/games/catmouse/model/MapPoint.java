@@ -3,30 +3,30 @@ package com.paulius.comp.games.catmouse.model;
 /**
  * Created by Admin on 2018-12-06.
  */
-public class MapPoint  {
+public class MapPoint {
 
-    public boolean isCheck() {
-        return check;
-    }
 
-    public void setCheck(boolean check) {
-        this.check = check;
-    }
+    int x;
+    int y;
+    private PointType p;
 
-    //  private boolean WALL;
-    private boolean check = true;
-
-    private PointType p ;
-
-    public void setP(PointType p) {
+    //Konstruktorius
+    public MapPoint(PointType p, int x, int y) {
+        this.x = x;
+        this.y = y;
         this.p = p;
     }
 
-    //Konstruktorius
-    public MapPoint(String P){
+    public int getX() {
+        return x;
+    }
 
-        this.p=PointType.valueOf(P);
+    public int getY() {
+        return y;
+    }
 
+    public void setP(PointType p) {
+        this.p = p;
     }
 
 

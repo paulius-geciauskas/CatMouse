@@ -1,25 +1,23 @@
 package com.paulius.comp.games.catmouse.data;
-
 import com.paulius.comp.games.catmouse.model.MapPoint;
-
-
+import com.paulius.comp.games.catmouse.model.PointType;
+import static com.paulius.comp.games.catmouse.model.PointType.EMPTY;
+import static com.paulius.comp.games.catmouse.model.PointType.MOUSE;
 /**
  * Created by Admin on 2018-12-05.
  */
 public class MapLoader {
     public MapPoint[][] loadMap(){
 
-  //  com.paulius.comp.games.catmouse.model.MapPoint [][] m2 = new com.paulius.comp.games.catmouse.model.MapPoint[4][4];
- //  m2 [0][0].p2 = com.paulius.comp.games.catmouse.model.PointType.CAT;
-   ///////////////////////////////////
+
         MapPoint [][] m = new MapPoint [][]
 
         {
-                {new MapPoint("MOUSE"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E")},
-                {new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E")},
-                {new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E")},
-                {new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E")},
-                {new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("E"), new MapPoint("CAT")},
+                {new MapPoint(MOUSE, 0,0), new MapPoint(EMPTY, 1,0), new MapPoint(EMPTY, 2,0), new MapPoint(EMPTY, 3,0), new MapPoint(EMPTY, 4,0)},
+                {new MapPoint(EMPTY, 0,1), new MapPoint(EMPTY, 1,1), new MapPoint(EMPTY, 2,1), new MapPoint(EMPTY, 3,1), new MapPoint(EMPTY, 4,1)},
+                {new MapPoint(EMPTY, 0,2), new MapPoint(EMPTY, 1,2), new MapPoint(EMPTY, 2,2), new MapPoint(EMPTY, 3,2), new MapPoint(EMPTY, 4,2)},
+                {new MapPoint(EMPTY, 0,3), new MapPoint(EMPTY, 1,3), new MapPoint(EMPTY, 2,3), new MapPoint(EMPTY, 3,3), new MapPoint(EMPTY, 4,3)},
+                {new MapPoint(EMPTY, 0,4), new MapPoint(EMPTY, 1,4), new MapPoint(EMPTY, 2,4), new MapPoint(EMPTY, 3,4), new MapPoint(EMPTY, 4,4)},
         };
 
 
